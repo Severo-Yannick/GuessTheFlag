@@ -12,11 +12,16 @@ struct ContentView: View {
     @State private var correctAnswer = Int.random(in: 0...2)
     @State private var showingScore = false
     @State private var scoreTitle = ""
+    @State private var userTotalScore = 0
+    @State private var userGamesPlayed = 0
     
     func flagTapped(_ number: Int) {
         if number == correctAnswer {
+            userGamesPlayed += 1
+            userTotalScore += 1
             scoreTitle = "Correct"
         } else {
+            userGamesPlayed += 1
             scoreTitle = "Wrong"
         }
 
@@ -50,7 +55,7 @@ struct ContentView: View {
             .alert(scoreTitle, isPresented: $showingScore) {
                 Button("Continue", action: askQuestion)
             } message: {
-                Text("Your score is ???")
+                Text("Your score is \(userTotalScore)/\(userGamesPlayed) ")
             }
         }
     }
