@@ -36,18 +36,22 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(colors: [.blue, .black], startPoint: .top, endPoint: .bottom)
+            RadialGradient(stops: [
+                .init(color: Color(red: 0.1, green: 0.2, blue: 0.45), location: 0.3),
+                .init(color: Color(red: 0.76, green: 0.15, blue: 0.26), location: 0.3),
+            ], center: .top, startRadius: 200, endRadius: 400)
                 .ignoresSafeArea()
             if(!showingResult) {
-                VStack(spacing: 30) {
+                VStack(spacing: 15) {
                     VStack {
-                        Text("Tap the flag of")
-                            .font(.subheadline.weight(.heavy))
+                        Text("Guess the Flag")
+                            .font(.largeTitle.bold())
                             .foregroundStyle(.white)
                         Text(countries[correctAnswer])
                             .font(.largeTitle.weight(.semibold))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.secondary)
                     }
+                    .padding()
                     
                     ForEach(0..<3) { number in
                         Button { flagTapped(number) }
@@ -58,6 +62,10 @@ struct ContentView: View {
                         }
                     }
                 }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 20)
+                .background(.regularMaterial)
+                .clipShape(.rect(cornerRadius: 20))
                 .alert(scoreTitle, isPresented: $showingScore) {
                     Button("Continue", action: askQuestion)
                 } message: {
@@ -66,8 +74,7 @@ struct ContentView: View {
             } else {
                 Text("Your result is \(userTotalScore)/\(userGamesPlayed)")
                     .foregroundStyle(.white)
-                    .fontWeight(.bold)
-                    .font(.title)
+                    .font(.title.bold())
             }
             
         }
