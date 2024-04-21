@@ -72,9 +72,20 @@ struct ContentView: View {
                     Text("Your score is \(userTotalScore)/\(userGamesPlayed) ")
                 }
             } else {
-                Text("Your result is \(userTotalScore)/\(userGamesPlayed)")
+                VStack {
+                    Text("Your result \(userTotalScore)/\(userGamesPlayed)")
+                        .foregroundStyle(.white)
+                        .font(.title.bold())
+                    Button("Restart the game") {
+                        showingResult.toggle()
+                    }
+                    .padding()
                     .foregroundStyle(.white)
-                    .font(.title.bold())
+                    .font(.title2.bold())
+                    .background(Color(red: 0.1, green: 0.2, blue: 0.45))
+                    .clipShape(.capsule)
+                    .shadow(radius: 5)
+                }
             }
             
         }
